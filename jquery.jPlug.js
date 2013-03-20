@@ -30,7 +30,6 @@
 		},	
 		restoreMe: function() {			
 			borray=this.data("myBorder");
-			console.log(borray);
 			bor=borray.pop();
 			if(bor!=null){
 				restoreMsg();
