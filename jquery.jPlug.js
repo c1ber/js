@@ -30,9 +30,11 @@
 		},	
 		restoreMe: function() {			
 			borray=this.data("myBorder");
+			console.log(borray);
 			bor=borray.pop();
 			if(bor!=null){
 				restoreMsg();
+				this.css("border","1px solid");
 				this.css("borderColor",bor);
 				this.data("myBorder",borray);
 			}
@@ -62,9 +64,10 @@
 			function(){
 				var borray=$(this).data("myBorder")||[];
 				borray.push($(this).css("borderTopColor"));	
-				$(this).data("myBorder",borray);				
+				$(this).data("myBorder",borray);
+				$(this).css("border","1px solid");				
 				if(settings)
-					$(this).css("borderTopColor",settings.border);
+					$(this).css("borderColor",settings.border);
 			}
 		);
 	};
