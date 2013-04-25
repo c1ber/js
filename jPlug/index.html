@@ -16,6 +16,7 @@ $(function(){
 	$("div").jPlug({border:"blue"});
 	$("div").jPlug({border:"yellow"});	
 	$("div").click(function(){$(this).restoreMe();});
+	$("div").on("end",function(e,msg){alert(msg);});
 });
 </script>
 </head>

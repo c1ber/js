@@ -28,7 +28,7 @@
 			this.show();
 			return this;
 		},	
-		restoreMe: function() {			
+		restoreMe: function() {	
 			borray=this.data("myBorder");
 			bor=borray.pop();
 			if(bor!=null){
@@ -36,6 +36,9 @@
 				this.css("border","1px solid");
 				this.css("borderColor",bor);
 				this.data("myBorder",borray);
+			}
+			else{				
+				this.trigger('end',"End of World!");
 			}
 			return this;
 		}
@@ -64,7 +67,7 @@
 				var borray=$(this).data("myBorder")||[];
 				borray.push($(this).css("borderTopColor"));	
 				$(this).data("myBorder",borray);
-				$(this).css("border","1px solid");				
+				$(this).css("border","1px solid");	
 				if(settings)
 					$(this).css("borderColor",settings.border);
 			}
