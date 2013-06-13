@@ -1,5 +1,10 @@
-
-(function($) {
+/*!
+ * jQuery lightweight plugin boilerplate
+ * Author: @kaalpurush
+ * Licensed under the MIT license
+ */
+ 
+;(function($) {
 	
 	//Global Static Class
 	$.jPlug = {
