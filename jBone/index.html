@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title>jBone</title>
+<meta http-equiv="Content-Language" content="en-us" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="title" content="" />
+<meta name="keywords" content=""
+<meta name="description" content="" />
+<style>
+</style>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="underscore.js"></script>
+<script type="text/javascript" src="backbone.js"></script>
+<script type="text/javascript" src="jBone.js"></script>
+<script type="text/javascript">
+</script>
+</head>
+<body>
+
+	<div id="canvas">
+	</div>
+
+	
+	<script type="text/template" id="item-template">
+      <div class="todo <%= done ? 'done' : '' %>">
+        <div class="display">
+          <input class="check" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
+          <div class="todo-content"></div>
+          <span class="todo-destroy"></span>
+        </div>
+        <div class="edit">
+          <input class="todo-input" type="text" value="" />
+        </div>
+      </div>
+    </script>
+
+</body>
+</html>
