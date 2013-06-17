@@ -25,8 +25,12 @@ $(function(){
     events: {
       //"keypress #new-todo":  "createOnEnter",
       //"keyup #new-todo":     "showTooltip",
-      //"click .todo-clear a": "clearCompleted"
+      "click .app h2": "clicked"
     },
+	
+	clicked: function(e) {
+		this.name='Baal';
+	},
 
     // At initialization we bind to the relevant events on the `Todos`
     // collection, when items are added or changed. Kick things off by
@@ -51,4 +55,9 @@ $(function(){
 
   // Finally, we kick things off by creating the **App**.
   window.App = new AppView({name:'Kaal'});
+  
+	window.App.on('change:name', function(model, val) {
+		alert("changed");
+		alert(val);
+	});
 });
