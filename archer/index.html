@@ -1,0 +1,336 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style>
+    *{margin:0;padding: 0;}
+    body{
+        background: url(img/bg1.png)  no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+		cursor: crosshair;
+    }
+    </style>
+</head>
+<body>
+<div id="container">
+
+</div>
+<script src="js/kinetic-v4.4.0.min.js"></script>
+<script>
+
+    var lh;
+
+    var arrow;
+
+    var timer=new Array();
+	
+	var total_devil=10;
+
+    window.onload = function() {
+	
+		var hit=0,missed=0,score=0,shot=0;
+
+        //^^^^^^^^^^^^Image^^^^^^^^^^^
+        var imgArcherBody = new Image();
+        imgArcherBody.src = 'img/archer_body.png';
+
+        var imgArcherHand = new Image();
+        imgArcherHand.src = 'img/archer_hand.png';
+
+        var imgArrow = new Image();
+        imgArrow.src = 'img/arrow.png';
+		
+		var devilSplashed = new Image();
+        devilSplashed.src = 'img/splashed.png';		
+	
+		var devilArray=new Array();
+		
+		for(var i=1;i<=total_devil;i++){
+			var devil=new Image();
+			devil.src = 'img/devil'+i+'.png';
+			devilArray.push(devil);
+		}
+
+        imgArcherBody.k_img = new Kinetic.Image({
+            image: imgArcherBody,
+            height:250,
+            width:95
+        });
+
+        imgArcherHand.k_img = new Kinetic.Image({
+            image: imgArcherHand,
+            height:331/2,
+            width:221/2
+        });
+
+        //$$$$$$$$$$$$$Image$$$$$$$$$$$$$$
+
+
+        var stage = new Kinetic.Stage({
+            container: 'container',
+            width: document.width,
+            height: document.height-10
+        });
+
+        //^^^^^^^^^^^^^^Layer^^^^^^^^^^^^^^^^^^^
+
+        var layerArcher = new Kinetic.Layer({
+            height: 250,
+            width: 95,
+            x:0,
+            y:document.height-250
+        });
+
+        var layerHand= new Kinetic.Layer({
+            height: 250,
+            width: 95,
+            x:45,
+            y:40,
+            offset:[0,331/4]
+        });
+
+        lh=layerHand;
+
+        var layerArrow = new Kinetic.Layer({
+            height: document.height,
+            width: document.width,
+            x:0,
+            y:0
+        });
+
+        var layerBalloon = new Kinetic.Layer({
+            height: document.height,
+            width: document.width,
+            x:0,
+            y:0
+        });
+		
+		var layerScore = new Kinetic.Layer({
+            height: 100,
+            width: 150,
+            x:document.width-200,
+            y:document.height-150
+        });
+
+        //$$$$$$$$$$$$$$$Layer$$$$$$$$$$$$$$$$
+		
+		var scoreText = new Kinetic.Text({
+			x: 10,
+			y: 10,
+			text: 'Hit: 0\nMissed: 0\n\nScore: 0',
+			fontSize: 30,
+			fontFamily: 'Calibri',
+			fill: 'black'
+		});
+
+        layerArcher.add(imgArcherBody.k_img);
+        layerHand.add(imgArcherHand.k_img);
+        layerArcher.add(layerHand);		
+		layerScore.add(scoreText);
+
+        stage.add(layerArcher);
+        stage.add(layerBalloon);
+		stage.add(layerScore);
+
+        stage.add(layerArrow);
+        layerArrow.moveToBottom();
+
+        addArrow=function(){
+            arrow = new Kinetic.Image({
+                image: imgArrow,
+                height:8,
+                width:100,
+                x:20,
+                y:document.height-250+44
+            });
+
+            layerArrow.add(arrow);
+
+            var rotDeg=layerHand.getRotationDeg();
+            arrow.rotateDeg(rotDeg);
+            layerArrow.draw();
+            arrow.transitionTo({
+                x: 45,
+                y:document.height-250+22,
+                duration:.1
+            });
+        }
+
+        addArrow();
+
+        rotateArrow=function(deg){
+            var rotDeg=layerHand.getRotationDeg();
+            if(rotDeg>30 && deg>0) return false;
+            if(rotDeg<-30 && deg<0) return false;
+
+            layerHand.rotateDeg(deg);
+            arrow.rotateDeg(deg);
+            layerArcher.draw();
+            layerArrow.draw();
+        }
+
+        document.onkeydown=function(e){
+            if(e.keyCode==38)
+                rotateArrow(5);
+            else if(e.keyCode==40)
+                rotateArrow(-5);
+            else if(e.keyCode==32){
+				launchArrow();
+            }
+        };
+		
+		function launchArrow(){
+			shot++;
+			var m=arrow.getRotation();
+			var y=m*(document.width-arrow.getPosition().x/2)+arrow.getPosition().y;
+
+			with({thearrow:arrow}){
+				thearrow.transitionTo({
+					x: document.width,
+					y: y,
+					duration: 1,
+					callback: function() {
+						thearrow.remove();
+					}
+				});
+			}
+			addArrow();		
+		}		
+
+        document.onmousemove=function(e){
+			var mouseX,mouseY;
+			mouseX=e.x;
+			mouseY=e.y;	
+			
+			var m=(mouseY-arrow.getPosition().y)/(mouseX-arrow.getPosition().x)*180/Math.PI;
+			
+			if(m>35 || m<-35) return false;
+			layerHand.setRotationDeg(m);
+			arrow.setRotationDeg(m);
+            layerArcher.draw();
+            layerArrow.draw();
+        }
+		
+		document.onclick=function(e){
+			launchArrow();
+		}
+		
+		timer[0]=setInterval(function(){
+            if(Math.round(Math.random()))
+                launchBalloon();
+        },1000);
+		
+		timer[1]=setInterval(function(){
+		
+			var arrows=layerArrow.getChildren();
+			var balloons=layerBalloon.getChildren();
+			
+			for(i in arrows){
+				var ar=arrows[i];
+				var pointX=ar.getPosition().x+ar.getWidth();
+				var pointY=ar.getPosition().y+(ar.getHeight()/2);
+                var rot=ar.getRotation();
+				for(j in balloons){
+					var ba=balloons[j];
+					if(typeof ba.dead!='undefined') continue;
+					if(ba.intersects([pointX,pointY])){
+                        //ba.dead=1;
+
+                        ba.setFillPatternImage(devilSplashed);
+                        ba.setFillPatternRepeat('repeat');
+
+                        for(var x=pointX;x<pointX+ba.getWidth();x+=1){
+                            var y=pointY+rot*(x-pointX);
+
+                            var col=ba.getContext().getImageData(x, y, 1, 1).data;
+
+                            //console.log([col[0],col[1],col[2]]);
+
+                            if(col[0]+col[1]+col[2]!=0){
+                                ba.dead=1;
+                                break;
+                            }
+                        }
+
+                        if(typeof ba.dead=='undefined' || !ba.dead) continue;
+                        ba.dead=1;
+						hit++;		
+						if(Math.abs(pointY-(ba.getPosition().y+ba.getWidth()/2))<10)
+							hit++;
+						updateScore();
+                        //ba.setFillPatternImage(devilSplashed);
+                        //ba.setFillPatternRepeat('repeat');
+						//ba.setImage(devilSplashed);
+						with({theba:ba}){
+							theba.transitionTo({
+								x: pointX,
+								y: document.height,
+                                rotation:Math.round(Math.random())?1:-1,
+								duration: .8,
+								callback: function() {
+									theba.remove();
+								}
+							});
+						}
+					}
+				}
+			}
+		
+		},1);
+		
+		updateScore=function(){
+			if(hit+missed>20)
+				return gameOver();
+				
+			var score=Math.round((hit*2-missed)*hit/shot);
+			scoreText.setText('Hit: '+hit+'\nMissed: '+missed+'\n\nScore: '+score);
+			layerScore.draw();
+		}		
+		
+		launchBalloon=function(){			
+		    imgBallon = new Kinetic.Image({
+				image: devilArray[Math.round(Math.random()*(devilArray.length-1))],
+				y: Math.random()*document.height/3
+			});
+
+            layerBalloon.add(imgBallon);
+            //imgBallon.moveTo([500,500]);
+            with({theballoon:imgBallon}){
+                theballoon.transitionTo({
+                    x: document.width,
+                    y: Math.random()*document.height,
+                    duration: Math.random()*2+2,
+                    callback: function() {
+						missed++;
+						updateScore();
+                        theballoon.remove();
+                    }
+                });
+            }
+            layerBalloon.draw();
+		}
+		
+		gameOver=function(){
+			for(var i in timer){
+				clearInterval(timer[i]);
+			}		
+			layerArcher.remove();
+			layerHand.remove();
+			layerBalloon.remove();
+			layerArrow.remove();
+			document.onkeydown=null;
+			document.onmousemove=null;
+			layerScore.transitionTo({
+				x: document.width/2-layerScore.getWidth()/2,
+				y: document.height/2-layerScore.getHeight()/2,
+				duration: 1
+            });
+		}
+
+    };
+
+</script>
+</body>
+</html>
