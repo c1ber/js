@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<script type='text/javascript' src='js/jquery.js'></script>
+<script src="js/kinetic-v4.4.0.min.js"></script>
+<script type="text/javascript" src="js/editor.js"></script>
+<title>Html5 image editor</title>
+<meta name="author" content="Kaal" />
+<style>
+#img_gallery{clear:both}
+#img_gallery ul{list-style:none;}
+#img_gallery ul li{display:inline;}
+</style>
+
+<script type="text/javascript">
+
+</script>
+</head>
+<body>
+<div id="wrapper">
+  <div id="content">
+    <p id="textcount" style="position:absolute; left: 0px; visibility:hidden;font-size:30pt;"></p>
+    <div id="container" style="float:left; margin-right:40px;margin-top:10px;"> </div>
+    <div id="editor">
+      <ul id="text" style="float: left; margin-right:10px;">
+        <div id="spinner" class="spinner" style="display:none;margin-left:80px;margin-bottom:20px;"> Image Uploading<img src="images/ajax.png" alt="loading"> </div>
+        <div id="container2" style="width:140px;"> </div>
+        <li>
+          <label>Text: </label>
+          <input type="text" id="texts" placeholder="Add Text Here"/>
+        </li>
+        <li>
+          <label>Font Family: </label>
+          <select id="fontfam">
+            <option>Calibri</option>
+            <option>Arial</option>
+            <option>Verdana</option>
+            <option>Impact</option>
+            <option>Serif</option>
+            <option>Monospace</option>
+            <option>Helvetica</option>
+            <option>Tahoma</option>
+            <option>Gadget</option>
+          </select>
+        </li>
+        <li>
+          <label>Font Colour: </label>
+          <select id="colour">
+            <option>Black</option>
+            <option>Red</option>
+            <option>Blue</option>
+            <option>Green</option>
+            <option>White</option>
+            <option>Yellow</option>
+            <option>Pink</option>
+            <option>Gray</option>
+            <option>Purple</option>
+            <option>Silver</option>
+            <option>Gold</option>
+            <option>Orange</option>
+          </select>
+        </li>
+        <li>
+          <label>Text Stroke Colour</label>
+          <select id="textstroke">
+            <option>transparent</option>
+            <option>White</option>
+            <option>Black</option>
+            <option>Red</option>
+            <option>Blue</option>
+            <option>Green</option>
+            <option>Yellow</option>
+            <option>Pink</option>
+            <option>Gray</option>
+            <option>Purple</option>
+            <option>Silver</option>
+            <option>Gold</option>
+            <option>Orange</option>
+          </select>
+        </li>
+        <li>
+          <label>&nbsp;</label>
+          <input type="submit" id="textsubmit" value="Add Text"/>
+        </li>
+      </ul>
+      <input type="submit" id="preview" value="Preview"/>
+      <input type="submit" id="save" value="Save"/>
+      <div id="img_gallery">
+      <ul id="img">
+        <li><a href="#"><img src="images/heart.png" id="i1" alt="heart" width="106" height="118" /></a></li>
+        <li><a href="#"><img src="images/balloon.png" id="i2" alt="balloon" width="106" height="118" /></a></li>
+        <li><a href="#"><img src="images/caterpillar3.png" id="i14" alt="caterpilla" width="106" height="118" /></a></li>
+        <li><a href="#"><img src="images/Bears_1.png" id="i3" alt="Bear" width="106" height="118" /></a></li>
+        <li><a href="#"><img src="images/Bears_2.png" id="i4" alt="Bear" width="106" height="118" /></a></li>
+        <li><a href="#"><img src="images/Bears_3.png" id="i5" alt="Bear" width="106" height="118" /></a></li>
+        <li><a href="#"><img src="images/Bears_4.png" id="i6" alt="Bear" width="106" height="118" /></a></li>
+        <li><a href="#"><img src="images/cat1.png" id="i7" alt="cat" width="106" height="118" /></a></li>
+        <li><a href="#"><img src="images/cat2.png" id="i8" alt="cat" width="106" height="118" /></a></li>
+        <li><a href="#"><img src="images/cat3.png" id="i9" alt="cat" width="106" height="118" /></a></li>
+        <li><a href="#"><img src="images/cat4.png" id="i10" alt="cat" width="106" height="118" /></a></li>
+        <li><a href="#"><img src="images/squirrels.png" id="i11" alt="squirrels" width="106" height="118" /></a></li>
+        <li><a href="#"><img src="images/caterpillar.png" id="i12" alt="caterpilla" width="106" height="118" /></a></li>
+        <li><a href="#"><img src="images/caterpillar2.png" id="i13" alt="caterpilla" width="106" height="118" /></a></li>
+      </ul> 
+		</div>
+    </div>
+
+  </div>
+</div>
+<!--container--> 
+
+<script>
+    $("#texts").keyup(function () {
+      var value = $(this).val();
+      $("p#textcount").text(value);
+	  	   var fontid =  $('#fontfam').val();
+		     $("p#textcount").css("font-family", fontid);
+		   var color =  $('#colour').val();
+             $("p#textcount").css("color", color);  
+    }).keyup();
+	
+	    $("#colour").change(function () {
+      var value = $('texts').val();
+      $("p#textcount").text(value);
+	  	   var fontid =  $('#fontfam').val();
+		     $("p#textcount").css("font-family", fontid);
+		   var color =  $('#colour').val();
+             $("p#textcount").css("color", color);  
+    }).keyup();
+	
+		    $("#fontfam").change(function () {
+      var value = $('texts').val();
+      $("p#textcount").text(value);
+	  	   var fontid =  $('#fontfam').val();
+		     $("p#textcount").css("font-family", fontid);
+		   var color =  $('#colour').val();
+             $("p#textcount").css("color", color);  
+    }).keyup();
+	
+	
+</script>
+</body>
+</html>
