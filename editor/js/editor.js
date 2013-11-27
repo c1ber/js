@@ -185,17 +185,13 @@ function initStage(images) {
 
 
 
-    document.getElementById("preview").addEventListener("click", function () {
-        stage.toDataURL(function (dataUrl) {
-            /*
-             * here you can do anything you like with the data url.
-             * In this tutorial we'll just open the url with the browser
-             * so that you can see the result as an image
-             */
-            window.open(dataUrl, rel = "lightbox");
-
-        });
-    }, false);
+   $("#preview").click(function () {
+		stage.toDataURL({ 
+			callback: function(dataUrl) {
+				window.open(dataUrl);
+			}
+		});
+    });
 
     $("ul#img a").click(function () {
         addProduct($('img', this));
