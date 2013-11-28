@@ -17,7 +17,7 @@
 <div id="container">
 
 </div>
-<script src="js/kinetic-v4.4.0.min.js"></script>
+<script src="js/kinetic-v4.7.4.min.js"></script>
 <script>
 
     var lh;
@@ -83,7 +83,7 @@
             y:document.height-250
         });
 
-        var layerHand= new Kinetic.Layer({
+        var layerHand= new Kinetic.Group({
             height: 250,
             width: 95,
             x:45,
@@ -151,11 +151,11 @@
             var rotDeg=layerHand.getRotationDeg();
             arrow.rotateDeg(rotDeg);
             layerArrow.draw();
-            arrow.transitionTo({
+            /*arrow.transitionTo({
                 x: 45,
                 y:document.height-250+22,
                 duration:.1
-            });
+            });*/
         }
 
         addArrow();
