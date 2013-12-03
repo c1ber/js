@@ -8,6 +8,7 @@
 <title>Html5 image editor</title>
 <meta name="author" content="Kaal" />
 <style>
+ul{list-style-type:none;}
 #img_gallery{clear:both}
 #img_gallery ul{list-style:none;}
 #img_gallery ul li{display:inline;}
@@ -110,32 +111,6 @@
 <!--container--> 
 
 <script>
-$("#texts").keyup(function () {
-	var value = $(this).val();
-	$("p#textcount").text(value);
-	var fontid =  $('#fontfam').val();
-	$("p#textcount").css("font-family", fontid);
-	var color =  $('#colour').val();
-	$("p#textcount").css("color", color);  
-}).keyup();
-	
-$("#colour").change(function () {
-	var value = $('texts').val();
-	$("p#textcount").text(value);
-	var fontid =  $('#fontfam').val();
-	$("p#textcount").css("font-family", fontid);
-	var color =  $('#colour').val();
-	$("p#textcount").css("color", color);  
-}).keyup();
-
-$("#fontfam").change(function () {
-	var value = $('texts').val();
-	$("p#textcount").text(value);
-	var fontid =  $('#fontfam').val();
-	$("p#textcount").css("font-family", fontid);
-	var color =  $('#colour').val();
-	$("p#textcount").css("color", color);  
-}).keyup();	
 </script>
 </body>
 </html>
