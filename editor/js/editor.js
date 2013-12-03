@@ -98,16 +98,12 @@ function addAnchor(group, x, y, name) {
     });
 
     anchor.on("mouseout", function () {
-
-
-
         var layer = this.getLayer();
         document.body.style.cursor = "default";
         this.setStrokeWidth(2);
         this.setStroke("transparent");
 
         layer.draw();
-
     });
 
 
@@ -141,36 +137,12 @@ function initStage(images) {
         height: 440
     });
 
-    var darthVaderGroup = new Kinetic.Group({
-        x: 300,
-        y: 80,
-        draggable: true,
-        dragBounds: {
-            top: 10,
-            right: stage.getWidth() - 300,
-            bottom: 100,
-            left: 10
-        }
-    });
-    var yodaGroup = new Kinetic.Group({
+    var groupBackground = new Kinetic.Group({
         x: 0,
         y: 0,
         draggable: false
     });
     var layer = new Kinetic.Layer();
-
-    /*
-     * go ahead and add the groups
-     * to the layer and the layer to the
-     * stage so that the groups have knowledge
-     * of its layer and stage
-     */
-
-
-
-    var simpleText = new Kinetic.Text({
-
-    });
 
     $('#save').click(function () {
         stage.toDataURL(function (dataUrl) {
@@ -223,7 +195,6 @@ function initStage(images) {
                 this.setStrokeWidth(1);
                 this.setStroke("#000000");
                 layer.draw();
-                writeMessage(messageLayer, "Drag Image Into Position Double Click To Remove");
             });
             image.on("mouseout", function () {
                 var imagelayer = this.getLayer();
@@ -231,7 +202,6 @@ function initStage(images) {
                 this.setStrokeWidth(0);
                 this.setStroke("transparent");
                 layer.draw();
-                writeMessage(messageLayer, "");
             });
             image.on("dblclick dbltap", function () {
                 layer.remove(image);
@@ -281,7 +251,6 @@ function initStage(images) {
             var y = 55;
         }
         var complexText = new Kinetic.Text({
-
             x: x,
             y: y,
             text: text2,
@@ -289,7 +258,6 @@ function initStage(images) {
             fontFamily: fontfam,
             textFill: colour,
             textStroke: textstroke
-
         });
 
 
@@ -382,8 +350,9 @@ function initStage(images) {
             rect.setStrokeWidth(1);
             rect.setStroke("black");
             shapesLayer.draw();
-            writeMessage(messageLayer, "Double Click To Remove Or Edit Text");
         })
+		
+		
         rect.on("mouseout", function () {
             var shapesLayer = this.getLayer();
             document.body.style.cursor = "default";
@@ -416,7 +385,7 @@ function initStage(images) {
             rect.setStrokeWidth(1);
             rect.setStroke("black");
             shapesLayer.draw();
-            writeMessage(messageLayer, "Drag Corners Increse Or Decrease Text Size");
+            
         })
         complexText.on("mouseout", function () {
             var shapesLayer = this.getLayer();
@@ -643,61 +612,30 @@ function initStage(images) {
 
 
     // add the shapes to the layer
-    layer.add(yodaGroup);
-    layer.add(darthVaderGroup);
+    layer.add(groupBackground);
 
     stage.add(layer);
 
-    // darth vader
-    var darthVaderImg = new Kinetic.Image({
-        x: 0,
-        y: 0,
-        image: images.darthVader,
-        width: 300,
-        height: 320,
-        strokeWidth: 2,
-        stroke: "black",
-        name: "image"
-    });
-    darthVaderImg.on("mouseover", function () {
-        var layer = this.getLayer();
-        document.body.style.cursor = "cursor";
-        this.setStrokeWidth(2);
-        this.setStroke("black");
-        layer.draw();
-        writeMessage(messageLayer, "Drag Image Into Position Click And Drag The Corners To Re-size");
-
-    });
-    darthVaderImg.on("mouseout", function () {
-        var layer = this.getLayer();
-        document.body.style.cursor = "default";
-        this.setStrokeWidth(0);
-        this.setStroke("transparent");
-        layer.draw();
-        writeMessage(messageLayer, "");
-
-    });
 
     var messageLayer = new Kinetic.Layer();
     stage.add(messageLayer);
 
-    darthVaderGroup.add(darthVaderImg);
-    addAnchor(darthVaderGroup, 0, 0, "topLeft");
-    addAnchor(darthVaderGroup, 300, 0, "topRight");
-    addAnchor(darthVaderGroup, 300, 320, "bottomRight");
-    addAnchor(darthVaderGroup, 0, 320, "bottomLeft");
+    //addAnchor(darthVaderGroup, 0, 0, "topLeft");
+    //addAnchor(darthVaderGroup, 300, 0, "topRight");
+    //addAnchor(darthVaderGroup, 300, 320, "bottomRight");
+    //addAnchor(darthVaderGroup, 0, 320, "bottomLeft");
 
     // yoda
-    var yodaImg = new Kinetic.Image({
+    var imageDefaultBackground = new Kinetic.Image({
         x: 0,
         y: 0,
-        image: images.yoda,
+        image: images.default_background,
         width: 691,
         height: 450,
         name: "image"
     });
 
-    yodaGroup.add(yodaImg);
+    groupBackground.add(imageDefaultBackground);
 
     stage.draw();
 }
@@ -705,91 +643,8 @@ function initStage(images) {
 
 window.onload = function () {
     var sources = {
-
-        darthVader: "images/Bears_3.png",
-        yoda: "images/heart.jpg"
+        default_background: "images/default_background.jpg"
     };
     loadImages(sources, initStage);
 
 };
-
-$(window).load(function () {
-
-    var stage2 = new Kinetic.Stage({
-        container: "container2",
-        width: 130,
-        height: 40
-    })
-
-    $("ul#text #texts").keyup(function () {
-
-        addText2();
-    });
-    $("ul#text #fontfam").change(function () {
-
-        addText2();
-    });
-
-    $("ul#text #colour").change(function () {
-
-        addText2();
-    });
-    $("ul#text #textstroke").change(function () {
-
-        addText2();
-    });
-
-    function addText2() {
-
-        var text3 = $('#texts').val();
-        var fontfam3 = $('#fontfam').val();
-        var colour3 = $('#colour').val();
-        var textstroke3 = $('#textstroke').val();
-
-        var font3 = 23;
-        var shapesLayer2 = new Kinetic.Layer();
-
-
-
-        var complexText2 = new Kinetic.Text({
-
-            x: 10,
-            y: 12,
-            text: text3,
-            fontSize: font3,
-            fontFamily: fontfam3,
-            textFill: colour3,
-            textStroke: textstroke3
-
-        });
-
-        stage2.clear();
-        shapesLayer2.draw();
-
-
-        // add the shapes to the layer
-        shapesLayer2.add(complexText2);
-
-        stage2.add(shapesLayer2);
-    };
-});
-
-$("#texts").keyup(function () {
-    var value = $(this).val();
-    $("p#textcount").text(value);
-    var fontid = $('#fontfam').val();
-    $("p#textcount").css("font-family", fontid);
-    var color = $('#colour').val();
-    $("p#textcount").css("color", color);
-}).keyup();
-
-
-
-$("#fontfam").change(function () {
-    var value = $('texts').val();
-    $("p#textcount").text(value);
-    var fontid = $('#fontfam').val();
-    $("p#textcount").css("font-family", fontid);
-    var color = $('#colour').val();
-    $("p#textcount").css("color", color);
-}).keyup();

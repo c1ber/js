@@ -110,34 +110,32 @@
 <!--container--> 
 
 <script>
-    $("#texts").keyup(function () {
-      var value = $(this).val();
-      $("p#textcount").text(value);
-	  	   var fontid =  $('#fontfam').val();
-		     $("p#textcount").css("font-family", fontid);
-		   var color =  $('#colour').val();
-             $("p#textcount").css("color", color);  
-    }).keyup();
+$("#texts").keyup(function () {
+	var value = $(this).val();
+	$("p#textcount").text(value);
+	var fontid =  $('#fontfam').val();
+	$("p#textcount").css("font-family", fontid);
+	var color =  $('#colour').val();
+	$("p#textcount").css("color", color);  
+}).keyup();
 	
-	    $("#colour").change(function () {
-      var value = $('texts').val();
-      $("p#textcount").text(value);
-	  	   var fontid =  $('#fontfam').val();
-		     $("p#textcount").css("font-family", fontid);
-		   var color =  $('#colour').val();
-             $("p#textcount").css("color", color);  
-    }).keyup();
-	
-		    $("#fontfam").change(function () {
-      var value = $('texts').val();
-      $("p#textcount").text(value);
-	  	   var fontid =  $('#fontfam').val();
-		     $("p#textcount").css("font-family", fontid);
-		   var color =  $('#colour').val();
-             $("p#textcount").css("color", color);  
-    }).keyup();
-	
-	
+$("#colour").change(function () {
+	var value = $('texts').val();
+	$("p#textcount").text(value);
+	var fontid =  $('#fontfam').val();
+	$("p#textcount").css("font-family", fontid);
+	var color =  $('#colour').val();
+	$("p#textcount").css("color", color);  
+}).keyup();
+
+$("#fontfam").change(function () {
+	var value = $('texts').val();
+	$("p#textcount").text(value);
+	var fontid =  $('#fontfam').val();
+	$("p#textcount").css("font-family", fontid);
+	var color =  $('#colour').val();
+	$("p#textcount").css("color", color);  
+}).keyup();	
 </script>
 </body>
 </html>
