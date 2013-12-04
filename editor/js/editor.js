@@ -154,9 +154,8 @@ function initStage(images) {
         x: 0,
         y: 0,
         image: images.default_background,
-        width: 691,
-        height: 450,
-        name: "image"
+		width: stage.getWidth(),
+		height: stage.getHeight()
     });
 
     groupBackground.add(imageDefaultBackground);
@@ -164,10 +163,29 @@ function initStage(images) {
     stage.draw();
 }
 
+function addBackground(imgObj){
+	var imageObj = new Image();
+	imageObj.src = imgObj.attr('src');
+	
+	imageObj.onload = function () {
+		groupBackground.removeChildren();
+		var image = new Kinetic.Image({
+			x:0,
+			y: 0,
+			image: imageObj,
+			width: stage.getWidth(),
+			height: stage.getHeight()
+		});
+		groupBackground.add(image);
+		stage.draw();
+	}
+}
+
 function addClip(imgObj) {
 
 	var layer = new Kinetic.Layer();
 	var imageObj = new Image();
+	imageObj.src = imgObj.attr('src');
 	
 	imageObj.onload = function () {
 		var image = new Kinetic.Image({
@@ -204,8 +222,6 @@ function addClip(imgObj) {
 			layer.draw();
 		});
 	};
-	
-	imageObj.src = imgObj.attr('src');
 
 }
 
@@ -617,8 +633,12 @@ $(function(){
 			}
 		});
     });
+	
+	$("#bg_gallery ul a").click(function () {
+        addBackground($('img', this));
+    });
 
-    $("ul#img a").click(function () {
+    $("#clip_gallery ul a").click(function () {
         addClip($('img', this));
     });
 	
