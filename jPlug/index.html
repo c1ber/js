@@ -12,12 +12,16 @@
 <script type="text/javascript">
 $(function(){
 	//$.jPlug.about();
-	$("div").jPlug({border:"green"});
+	$("div").jPlug({border:"green"}).hideMe().showMe();
 	$("div").jPlug({border:"blue"});
 	$("div").jPlug({border:"yellow"});	
 	$("div").click(function(){$(this).restoreMe();});
 	$("div").on("end",function(e,msg){alert(msg);});
 });
+
+function clickMe(id){
+	console.log(this,id);
+}
 </script>
 </head>
 <body>
@@ -46,6 +50,8 @@ $(function(){
 			<li class="pureCssMenui0"><a class="pureCssMenui0 ajaxify" href="#admin">Admin</a></li>
 		</ul>
 	</div>
+	
+	<a href="#" onclick="clickMe.call(this,5)">Click Me</a>
 
 </body>
 </html>

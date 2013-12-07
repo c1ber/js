@@ -11,12 +11,12 @@
 		version: '1.0',
 		//Global Static Fucntion[call $.jPlug.about() from anywhere]
 		about: function() {
-			alert("jPlug");
+			alert("jPlug "+version);
 		}
 	};
 	
 	
-	//Global Function[call restoreMsg() from anywhere]
+	//Global Function[call restoreMsg() from anywhere! truly!]
 	restoreMsg=function(){
 		alert("Restoring...");
 	}
@@ -61,7 +61,7 @@
 		
 		if(settings)
 			settings = $.extend(defaults, settings);
-		//$.extend(this, defaults, settings);	
+			//settings = $.extend(this, defaults, settings);	
 
 		function hi(msg){
 			alert(msg);
