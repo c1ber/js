@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style>
+    *{margin:0;padding: 0;}
+    body{
+        background: url(img/bg.jpg)  no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+		cursor: crosshair;
+    }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<script src="js/kinetic-v5.1.0.min.js"></script>
+<script>
+
+var stage = new Kinetic.Stage({
+	container: 'container',
+	width: window.innerWidth-5,
+	height: window.innerHeight-5
+});
+
+var imgKite = new Image();
+imgKite.src = 'img/kite.png';
+
+imgKiteImg = new Kinetic.Image({
+	image: imgKite,
+	height:100,
+	width:100
+});
+
+var layerKite = new Kinetic.Layer({
+	height: 100,
+	width: 100,
+	x:50,
+	y:50
+});
+
+layerKite.add(imgKiteImg);
+
+stage.add(layerKite);
+
+setInterval(function(){moveKite();},1000);
+
+
+
+function moveKite(){
+	var tweenKite = new Kinetic.Tween({
+		node: layerKite, 
+		duration: 1,
+		x:  Math.random()*window.innerWidth,
+		y:  Math.random()*window.innerHeight-10,
+		rotation: Math.random()*360,
+		opacity: 1,
+		strokeWidth: 6,
+		scaleX: 1.5
+	});
+	tweenKite.play();
+}
+
+</script>
+</body>
+</html>
